@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   
+    <style>
+        body {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        .main_container {
+            width: 100%;
+
+        }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            display: flex;
+            z-index: 9000;
+            padding: 10px;
+            background-color: #88a0a7;
+            justify-content: space-around;
+            align-items: center;
+            box-shadow: 7px 5px 15px -4px rgba(0, 0, 0, 0.75);
+            -webkit-box-shadow: 7px 5px 15px -4px rgba(0, 0, 0, 0.75);
+            -moz-box-shadow: 7px 5px 15px -4px rgba(0, 0, 0, 0.75);
+        }
+
+        .nav-items>ul>li {
+            position: relative;
+            display: inline;
+            list-style: none;
+            margin: 10px;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .nav-items>ul>li>a {
+            color: white;
+            text-decoration: none;
+            font-size: large;
+            font-weight: bold;
+        }
+
+        .nav-items>ul>li::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 0.17rem;
+            background-color: #c52726;
+            left: 0;
+            bottom: 0;
+            transform-origin: 0% 100%;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-items>ul>li:hover::after {
+            transform: scaleX(1);
+        }
+
+        .nav-logo img {
+            width: 100%;
+
+            height: 70px;
+        }
+
+        .nav-button a {
+            color: white;
+            list-style: none;
+            text-decoration: none;
+            display: flex;
+        }
+
+        .nav-logo {
+            font-size: 32px;
+        }
+
+        .nav-button {
+            background-color: #c52726;
+            border-radius: 50px;
+            position: relative;
+            display: inline-block;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .anim-layer {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 0;
+            height: 100%;
+            background-color: white;
+            transition: width 0.3s ease, left 0.3s ease;
+        }
+
+        .nav-button:hover .anim-layer {
+            width: 100%;
+            left: 0;
+        }
+
+        .nav-button:hover a {
+            color: #141214;
+        }
+
+        .nav-button a {
+            display: block;
+            padding: 10px 20px;
+            color: white;
+            text-decoration: none;
+            position: relative;
+            z-index: 1;
+        }
+
+        #hamburger-menu,
+        #mobile-menu {
+            display: none;
+        }
+
+        #hero_section {
+            /* border: 1px solid gray; */
+            width: 100%;
+
+        }
+
+        #hero_section img {
+            width: 100%;
+            box-shadow: rgba(245, 238, 238, 0.16) 0px 3px 6px, rgba(15, 14, 14, 0.23) 0px 3px 6px;
+
+
+        }
+
+        /* photo slide css start==------------------------------------- */
+        /* @keyframes tonext {
+  75% {
+    left: 0;
+  }
+  95% {
+    left: 100%;
+  }
+  98% {
+    left: 100%;
+  }
+  99% {
+    left: 0;
+  }
+}
+
+@keyframes tostart {
+  75% {
+    left: 0;
+  }
+  95% {
+    left: -300%;
+  }
+  98% {
+    left: -300%;
+  }
+  99% {
+    left: 0;
+  }
+}
+
+@keyframes snap {
+  96% {
+    scroll-snap-align: center;
+  }
+  97% {
+    scroll-snap-align: none;
+  }
+  99% {
+    scroll-snap-align: none;
+  }
+  100% {
+    scroll-snap-align: center;
+  }
+} */
+
+/* body {
+  max-width: 37.5rem;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+  font-family: 'Lato', sans-serif;
+} */
+
+* {
+  box-sizing: border-box;
+  scrollbar-color: transparent transparent; /* thumb and track color */
+  scrollbar-width: 0px;
+} 
+
+*::-webkit-scrollbar {
+  width: 0;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: transparent;
+  border: none;
+}
+
+* {
+  -ms-overflow-style: none;
+}
+
+ol, li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.carousel {
+  position: relative;
+  padding-top: 55%;
+  /* filter: drop-shadow(0 0 10px #0003); */
+  perspective: 100px;
+  margin: 10px auto;
+  height: 300px;
+  width: 100%;
+  
+}
+
+.carousel__viewport {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  overflow-x: scroll;
+  counter-reset: item;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+}
+
+.carousel__slide {
+  position: relative;
+  flex: 0 0 100%;
+  width: 95%;
+  /* background-color: #f99; */
+  background-image: url(./image/355607_w-3840_h-2160_q-70_m-crop.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  counter-increment:item;
+}
+
+.carousel__slide:nth-child(2) {
+  /* background-color: #99f; */
+  background-image: url(./image/guide-to-visiting-local-islands-in-maldives-1.webp);
+  background-repeat: no-repeat;
+  background-size: cover;
+  counter-increment:item;
+}
+.carousel__slide:nth-child(3) {
+  /* background-color: #99f; */
+  background-image: url(./image/MLDPH_P378_Beach_Cabana_Dinner-1024x682.webp);
+  background-repeat: no-repeat;
+  background-size: cover;
+  counter-increment:item;
+}
+.carousel__slide:nth-child(4) {
+  /* background-color: #99f; */
+  background-image: url(./image/maldives-six-senses-laamu4.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  counter-increment:item;
+}
+/* .carousel__slide:before {
+  content: counter(item);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%,-40%,70px);
+  color: #fff;
+  font-size: 2em;
+} */
+
+.carousel__snapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 90%;
+  scroll-snap-align:fixed;
+}
+
+@media (hover: hover) {
+  .carousel__snapper {
+    animation-name: tonext, snap;
+    animation-timing-function: ease;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+  }
+
+  .carousel__slide:last-child .carousel__snapper {
+    animation-name: tostart, snap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel__snapper {
+    animation-name: none;
+  }
+}
+
+.carousel:hover .carousel__snapper,
+.carousel:focus-within .carousel__snapper {
+  animation-name: none;
+}
+
+.carousel__navigation {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  /* text-align: center; */
+}
+
+.carousel__navigation-list,
+.carousel__navigation-item {
+  display: inline-block;
+}
+
+.carousel__navigation-button {
+  display: inline-block;
+  width: 10%;
+  height:50px;
+  background-color: #070202;
+  background-clip: content-box;
+  border: 0.25rem solid transparent;
+  border-radius: 50%;
+  font-size: 0;
+  transition: transform 0.1s;
+}
+
+.carousel::before,
+.carousel::after,
+.carousel__prev,
+.carousel__next {
+  position: absolute;
+  top: 0;
+  margin-top: 40%;
+  width: 3rem;
+  height: 3rem;
+  transform: translateY(-70%);
+  border-radius: 50%;
+  font-size: 0;
+  outline: 0;
+}
+
+.carousel::before,
+.carousel__prev {
+  left: 1rem;
+}
+
+.carousel::after,
+.carousel__next {
+  right: 0.9rem;
+}
+
+.carousel::before,
+.carousel::after {
+  content: '';
+  z-index: 1;
+  background-color: #202020;
+  background-size: 1.5rem 1.5rem;
+  background-repeat: no-repeat;
+  background-position: center center;
+  color: #fff;
+  font-size: 2.5rem;
+  line-height: 4rem;
+  text-align: center;
+  pointer-events: none;
+}
+
+.carousel::before {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='0,50 80,100 80,0' fill='%23fff'/%3E%3C/svg%3E");
+}
+
+.carousel::after {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='100,50 20,100 20,0' fill='%23fff'/%3E%3C/svg%3E");
+}
+
+        /* photo slide css end==------------------------------------- */
+        #Gallery_section {
+            /* border: 1px solid gray; */
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+
+        }
+
+        #Gallery_section div {
+            /* border: 1px solid gray; */
+
+            /* transition: ease-in-out 1s; */
+            overflow: hidden;
+            height: 430px;
+            border-radius: 5px;
+            /* box-shadow: rgb(225, 250, 246) 0px 22px 70px 4px; */
+        }
+
+        #Gallery_section img {
+            width: 100%;
+            height: 430px;
+            transition: ease-in-out 1s;
+            box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+
+        }
+
+        #Gallery_section img:hover {
+            transform: scale(1.1);
+            cursor: pointer;
+
+
+        }
+
+        /* 3D Slideshow */
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+h1{
+    margin: 10px auto;
+}
+
+        #slideshow {
+            margin: 0px auto;
+            padding-top: 0px;
+            height: 600px;
+            width: 100%;
+            background-color: #ffffff;
+            box-sizing: border-box;
+        }
+
+        .entire-content {
+            margin: auto;
+            width: 725px;
+            /* perspective: 700px; */
+            position: relative;
+            padding-top: 20px;
+        }
+
+        .content-carrousel {
+            width: 100%;
+            position: absolute;
+            float: right;
+            animation: rotar 65s infinite linear;
+            transform-style: preserve-3d;
+        }
+
+        .content-carrousel:hover {
+            animation-play-state: paused;
+            cursor: pointer;
+        }
+
+        .content-carrousel figure {
+            width: 100%;
+            height: 520px;
+            /* border: 1px solid #3b444b; */
+            overflow: hidden;
+            position: absolute;
+        }
+
+        .content-carrousel figure:nth-child(1) {
+            transform: rotateY(0deg) translateZ(1000px);
+        }
+
+        .content-carrousel figure:nth-child(2) {
+            transform: rotateY(40deg) translateZ(1000px);
+        }
+
+        .content-carrousel figure:nth-child(3) {
+            transform: rotateY(80deg) translateZ(1000px);
+        }
+
+        .content-carrousel figure:nth-child(4) {
+            transform: rotateY(120deg) translateZ(1000px);
+        }
+
+        .content-carrousel figure:nth-child(5) {
+            transform: rotateY(160deg) translateZ(1000px);
+        }
+
+        .content-carrousel figure:nth-child(6) {
+            transform: rotateY(200deg) translateZ(1000px);
+        }
+
+        .content-carrousel figure:nth-child(7) {
+            transform: rotateY(240deg) translateZ(1000px);
+        }
+
+        .content-carrousel figure:nth-child(8) {
+            transform: rotateY(280deg) translateZ(1000px);
+        }
+
+        .content-carrousel figure:nth-child(9) {
+            transform: rotateY(320deg) translateZ(1000px);
+        }
+
+        .content-carrousel figure:nth-child(10) {
+            transform: rotateY(360deg) translateZ(1000px);
+        }
+
+        .shadow {
+            position: absolute;
+            box-shadow: 0px 0px 20px 0px #000;
+            border-radius: 1px;
+        }
+
+        .content-carrousel img {
+            image-rendering: auto;
+            transition: all 300ms;
+            width: 100%;
+            height: 100%;
+        }
+
+        .content-carrousel img:hover {
+            transform: scale(1.2);
+            transition: all 300ms;
+        }
+
+        @keyframes rotar {
+            from {
+                transform: rotateY(0deg);
+            }
+
+            to {
+                transform: rotateY(360deg);
+            }
+        }
+
+       
+
+* {
+  font-family: Open Sans;
+}
+
+section {
+  width: 100%;
+  display: inline-block;
+  background: #333;
+  height: 50vh;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.footer-distributed{
+	background: #666;
+	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+	box-sizing: border-box;
+	width: 100%;
+	text-align: left;
+	font: bold 16px sans-serif;
+	padding: 55px 50px;
+}
+
+.footer-distributed .footer-left,
+.footer-distributed .footer-center,
+.footer-distributed .footer-right{
+	display: inline-block;
+	vertical-align: top;
+}
+
+/* Footer left */
+
+.footer-distributed .footer-left{
+	width: 40%;
+}
+
+/* The company logo */
+
+.footer-distributed h3{
+	color:  #ffffff;
+	font: normal 36px 'Open Sans', cursive;
+	margin: 0;
+}
+
+.footer-distributed h3 span{
+	color:  lightseagreen;
+}
+
+/* Footer links */
+
+.footer-distributed .footer-links{
+	color:  #ffffff;
+	margin: 20px 0 12px;
+	padding: 0;
+}
+
+.footer-distributed .footer-links a{
+	display:inline-block;
+	line-height: 1.8;
+  font-weight:400;
+	text-decoration: none;
+	color:  inherit;
+}
+
+.footer-distributed .footer-company-name{
+	color:  #222;
+	font-size: 14px;
+	font-weight: normal;
+	margin: 0;
+}
+
+/* Footer Center */
+
+.footer-distributed .footer-center{
+	width: 35%;
+}
+
+.footer-distributed .footer-center i{
+	background-color:  #33383b;
+	color: #ffffff;
+	font-size: 25px;
+	width: 38px;
+	height: 38px;
+	border-radius: 50%;
+	text-align: center;
+	line-height: 42px;
+	margin: 10px 15px;
+	vertical-align: middle;
+}
+
+.footer-distributed .footer-center i.fa-envelope{
+	font-size: 17px;
+	line-height: 38px;
+}
+
+.footer-distributed .footer-center p{
+	display: inline-block;
+	color: #ffffff;
+  font-weight:400;
+	vertical-align: middle;
+	margin:0;
+}
+
+.footer-distributed .footer-center p span{
+	display:block;
+	font-weight: normal;
+	font-size:14px;
+	line-height:2;
+}
+
+.footer-distributed .footer-center p a{
+	color:  lightseagreen;
+	text-decoration: none;;
+}
+
+.footer-distributed .footer-links a:before {
+  content: "|";
+  font-weight:300;
+  font-size: 20px;
+  left: 0;
+  color: #fff;
+  display: inline-block;
+  padding-right: 5px;
+}
+
+.footer-distributed .footer-links .link-1:before {
+  content: none;
+}
+
+/* Footer Right */
+
+.footer-distributed .footer-right{
+	width: 20%;
+}
+
+.footer-distributed .footer-company-about{
+	line-height: 20px;
+	color:  #92999f;
+	font-size: 13px;
+	font-weight: normal;
+	margin: 0;
+}
+
+.footer-distributed .footer-company-about span{
+	display: block;
+	color:  #ffffff;
+	font-size: 14px;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+.footer-distributed .footer-icons{
+	margin-top: 25px;
+}
+
+.footer-distributed .footer-icons a{
+	display: inline-block;
+	width: 35px;
+	height: 35px;
+	cursor: pointer;
+	background-color:  #33383b;
+	border-radius: 2px;
+
+	font-size: 20px;
+	color: #ffffff;
+	text-align: center;
+	line-height: 35px;
+
+	margin-right: 3px;
+	margin-bottom: 5px;
+}
+
+/* If you don't want the footer to be responsive, remove these media queries */
+
+
+           
+
+        @media screen and (min-width:50px) and (max-width: 470px) {
+            #mobile-menu {
+                background-color: #c52726;
+                width: 100%;
+                height: 100vh;
+                position: fixed;
+                top: 0;
+                left: 0;
+                display: none;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                transition: transform 0.3s ease;
+                transform: translateX(-100%);
+            }
+
+            .mobile-nav-items>ul {
+                padding: 0px;
+            }
+
+            .mobile-nav-items>ul>li {
+                text-align: center;
+                position: relative;
+                list-style: none;
+                margin: 10px;
+                padding: 10px 20px;
+                cursor: pointer;
+            }
+
+            .mobile-nav-items>ul>li>a {
+                color: white;
+                text-decoration: none;
+            }
+
+            .mobile-nav-items>ul>li::after {
+                content: "";
+                position: absolute;
+                width: 100%;
+                height: 0.17rem;
+                background-color: white;
+                left: 0;
+                bottom: 0;
+                transform-origin: 0% 100%;
+                transform: scaleX(0);
+                transition: transform 0.3s ease;
+            }
+
+            .mobile-nav-items>ul>li:hover::after {
+                transform: scaleX(1);
+            }
+
+            .mobile-nav-button {
+                background-color: #141214;
+                border-radius: 50px;
+                position: relative;
+                display: inline-block;
+                overflow: hidden;
+                cursor: pointer;
+            }
+
+            .mobile-nav-button .anim-layer {
+                position: absolute;
+                top: 0;
+                left: 50%;
+                width: 0;
+                height: 100%;
+                background-color: white;
+                transition: width 0.3s ease, left 0.3s ease;
+            }
+
+            .mobile-nav-button:hover .anim-layer {
+                width: 100%;
+                left: 0;
+            }
+
+            .mobile-nav-button:hover a {
+                color: #141214;
+            }
+
+            .mobile-nav-button a {
+                display: block;
+                padding: 10px 20px;
+                color: white;
+                text-decoration: none;
+                position: relative;
+                z-index: 1;
+            }
+
+            .nav-items>ul,
+            .nav-button {
+                display: none;
+            }
+
+            #hamburger-cross {
+                display: block;
+                color: white;
+                cursor: pointer;
+                font-size: 40px;
+                position: absolute;
+                top: 20px;
+                right: 26px;
+            }
+
+            #hamburger-menu {
+                display: block;
+                color: rgb(29, 42, 218);
+                cursor: pointer;
+                font-size: xx-large;
+                font-weight: bold;
+            }
+
+            #Gallery_section {
+                display: grid;
+                grid-template-columns: repeat(1, 1fr);
+
+
+            }
+
+            #Gallery_section div {
+                height: 330px;
+                border-radius: 5px;
+
+            }
+
+            #Gallery_section img {
+                height: 330px;
+
+            }
+
+            #slideshow {
+                margin: 0px auto;
+                padding-top: 0px;
+                height: 330px;
+                width: 100%;
+                background-color: #ffffff;
+                box-sizing: border-box;
+            }
+
+            .entire-content {
+                margin: auto;
+                width: 100%;
+                /* perspective: 400px; */
+                position: relative;
+                padding-top: 10px;
+            }
+
+            .content-carrousel {
+                width: 100%;
+                position: absolute;
+                float: right;
+                animation: rotar 65s infinite linear;
+                transform-style: preserve-3d;
+            }
+
+            .content-carrousel:hover {
+                animation-play-state: paused;
+                cursor: pointer;
+            }
+
+            .content-carrousel figure {
+                width: 100%;
+                height: 310px;
+                /* border: 1px solid #3b444b; */
+                overflow: hidden;
+                position: absolute;
+            }
+
+           
+
+
+            .footer-distributed{
+		font: bold 14px sans-serif;
+	}
+
+	.footer-distributed .footer-left,
+	.footer-distributed .footer-center,
+	.footer-distributed .footer-right{
+		display: block;
+		width: 100%;
+		margin-bottom: 40px;
+		text-align: center;
+    
+	}
+
+	.footer-distributed .footer-center i{
+		margin-left: 0;
+	}
+           
+        }
+
+        @media screen and (min-width:471px) and (max-width: 880px) {
+            #mobile-menu {
+                background-color: #c52726;
+                width: 100%;
+                height: 100vh;
+                position: fixed;
+                top: 0;
+                left: 0;
+                display: none;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                transition: transform 0.3s ease;
+                transform: translateX(-100%);
+            }
+
+            .mobile-nav-items>ul {
+                padding: 0px;
+            }
+
+            .mobile-nav-items>ul>li {
+                text-align: center;
+                position: relative;
+                list-style: none;
+                margin: 10px;
+                padding: 10px 20px;
+                cursor: pointer;
+            }
+
+            .mobile-nav-items>ul>li>a {
+                color: white;
+                text-decoration: none;
+            }
+
+            .mobile-nav-items>ul>li::after {
+                content: "";
+                position: absolute;
+                width: 100%;
+                height: 0.17rem;
+                background-color: white;
+                left: 0;
+                bottom: 0;
+                transform-origin: 0% 100%;
+                transform: scaleX(0);
+                transition: transform 0.3s ease;
+            }
+
+            .mobile-nav-items>ul>li:hover::after {
+                transform: scaleX(1);
+            }
+
+            .mobile-nav-button {
+                background-color: #141214;
+                border-radius: 50px;
+                position: relative;
+                display: inline-block;
+                overflow: hidden;
+                cursor: pointer;
+            }
+
+            .mobile-nav-button .anim-layer {
+                position: absolute;
+                top: 0;
+                left: 50%;
+                width: 0;
+                height: 100%;
+                background-color: white;
+                transition: width 0.3s ease, left 0.3s ease;
+            }
+
+            .mobile-nav-button:hover .anim-layer {
+                width: 100%;
+                left: 0;
+            }
+
+            .mobile-nav-button:hover a {
+                color: #141214;
+            }
+
+            .mobile-nav-button a {
+                display: block;
+                padding: 10px 20px;
+                color: white;
+                text-decoration: none;
+                position: relative;
+                z-index: 1;
+            }
+
+            .nav-items>ul,
+            .nav-button {
+                display: none;
+            }
+
+            #hamburger-cross {
+                display: block;
+                color: white;
+                cursor: pointer;
+                font-size: 40px;
+                position: absolute;
+                top: 20px;
+                right: 26px;
+            }
+
+            #hamburger-menu {
+                display: block;
+                color: rgb(29, 42, 218);
+                cursor: pointer;
+                font-size: xx-large;
+                font-weight: bold;
+            }
+
+            #Gallery_section {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                width: 99%;
+
+
+            }
+
+            #Gallery_section div {
+                height: 380px;
+                border-radius: 10px;
+
+            }
+
+            #Gallery_section img {
+                height: 380px;
+
+            }
+
+            #slideshow {
+                margin: 0px auto;
+                padding-top: 10px;
+                height: 650px;
+                width: 100%;
+                background-color: #b4dbd9;
+                box-sizing: border-box;
+            }
+
+            .entire-content {
+                margin: auto;
+                width: 94%;
+                /* perspective: 1000px; */
+                position: relative;
+                padding-top: 10px;
+            }
+
+            .content-carrousel {
+                width: 100%;
+                position: absolute;
+                float: right;
+                animation: rotar 65s infinite linear;
+                transform-style: preserve-3d;
+            }
+
+            .content-carrousel:hover {
+                animation-play-state: paused;
+                cursor: pointer;
+            }
+
+            .content-carrousel figure {
+                width: 100%;
+                height: 600px;
+                /* border: 1px solid #3b444b; */
+                overflow: hidden;
+                position: absolute;
+            }
+            .footer-distributed{
+		font: bold 14px sans-serif;
+	}
+
+	.footer-distributed .footer-left,
+	.footer-distributed .footer-center,
+	.footer-distributed .footer-right{
+		display: block;
+		width: 100%;
+		margin-bottom: 40px;
+		text-align: center;
+	}
+
+	.footer-distributed .footer-center i{
+		margin-left: 0;
+	}
+            
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="main_container">
+        <div class="navbar">
+            <div class="nav-logo">
+                <a href="#"><img src="./image/png logo 1.png" alt=""></a>
+            </div>
+            <div class="nav-items">
+                <ul>
+                    <li><a href="#" > Home </a></li>
+                    <li><a href="#Gallery_section"> Gallery </a></li>
+                    <li><a href="#slideshow"> About </a></li>
+                    <li><a href="#"> Contact </a></li>
+                    <li><a href="#"> Services </a></li>
+                </ul>
+            </div>
+            <div class="nav-button">
+                <div class="anim-layer"></div>
+                <a href="#">Sign Up</a>
+            </div>
+            <div id="hamburger-menu">&#9776;</div>
+        </div>
+
+        <div id="mobile-menu">
+            <div class="mobile-nav-items">
+                <ul>
+                    <li><a href="#"> Home </a></li>
+                    <li><a href="#"> Services </a></li>
+                    <li><a href="#"> About </a></li>
+                    <li><a href="#"> Contact </a></li>
+                    <li><a href="#"> Home </a></li>
+                </ul>
+            </div>
+            <div class="mobile-nav-button">
+                <div class="anim-layer"></div>
+                <a href="#">Sign Up</a>
+            </div>
+            <div id="hamburger-cross">&#10006;</div>
+        </div>
+        <div id="hero_section">
+            <img src="./image/sunrise-vs-sunset-view-luxury-overwater-pool-villa-waldorf-astoria-maldives-ithaafushi.jpg"
+                alt="">
+        </div>
+    <!-- photo slide section------------------------------------ -->
+    <section class="carousel" aria-label="Gallery">
+        <ol class="carousel__viewport">
+          <li id="carousel__slide1"
+              tabindex="0"
+              class="carousel__slide">
+            <div class="carousel__snapper">
+              <a href="#carousel__slide4"
+                 class="carousel__prev">Go to last slide</a>
+              <a href="#carousel__slide2"
+                 class="carousel__next">Go to next slide</a>
+            </div>
+          </li>
+          <li id="carousel__slide2"
+              tabindex="0"
+              class="carousel__slide">
+            <div class="carousel__snapper"></div>
+            <a href="#carousel__slide1"
+               class="carousel__prev">Go to previous slide</a>
+            <a href="#carousel__slide3"
+               class="carousel__next">Go to next slide</a>
+          </li>
+          <li id="carousel__slide3"
+              tabindex="0"
+              class="carousel__slide">
+            <div class="carousel__snapper"></div>
+            <a href="#carousel__slide2"
+               class="carousel__prev">Go to previous slide</a>
+            <a href="#carousel__slide4"
+               class="carousel__next">Go to next slide</a>
+          </li>
+          <li id="carousel__slide4"
+              tabindex="0"
+              class="carousel__slide">
+            <div class="carousel__snapper"></div>
+            <a href="#carousel__slide3"
+               class="carousel__prev">Go to previous slide</a>
+            <a href="#carousel__slide1"
+               class="carousel__next">Go to first slide</a>
+          </li>
+        </ol>
+        <aside class="carousel__navigation">
+          <ol class="carousel__navigation-list">
+            <li class="carousel__navigation-item">
+              <a href="#carousel__slide1"
+                 class="carousel__navigation-button">Go to slide 1</a>
+            </li>
+            <li class="carousel__navigation-item">
+              <a href="#carousel__slide2"
+                 class="carousel__navigation-button">Go to slide 2</a>
+            </li>
+            <li class="carousel__navigation-item">
+              <a href="#carousel__slide3"
+                 class="carousel__navigation-button">Go to slide 3</a>
+            </li>
+            <li class="carousel__navigation-item">
+              <a href="#carousel__slide4"
+                 class="carousel__navigation-button">Go to slide 4</a>
+            </li>
+          </ol>
+        </aside>
+      </section>
+
+<!-- gallery -->
+        <h1>Gallery</h1>
+        <div id="Gallery_section">
+
+            <div><img src="./image/download (1).jpg" alt=""></div>
+            <div><img src="./image/download (2).jpg" alt=""></div>
+            <div><img src="./image/download (3).jpg" alt=""></div>
+            <div><img src="./image/download (4).jpg" alt=""></div>
+            <div><img src="./image/download (5).jpg" alt=""></div>
+            <div><img src="./image/download (6).jpg" alt=""></div>
+            <div><img src="./image/download (7).jpg" alt=""></div>
+            <div><img src="./image/download (8).jpg" alt=""></div>
+            <div><img src="./image/download (9).jpg" alt=""></div>
+            <div><img src="./image/download (10).jpg" alt=""></div>
+            <div><img src="./image/download (11).jpg" alt=""></div>
+            <div><img src="./image/download (12).jpg" alt=""></div>
+        </div>
+
+        <h1>Slideshow Photo</h1>
+
+        <!-- 3D Slideshow Section -->
+        <section id="slideshow">
+            <div class="entire-content">
+                <div class="content-carrousel">
+                    <figure class="shadow"><img src="./image/-1x-1.jpg" /></figure>
+                    <figure class="shadow"><img src="./image/sunset-water-hammocks-0502.jpg" /></figure>
+                    <figure class="shadow"><img src="./image/nova-maldives.jpg" /></figure>
+                    <figure class="shadow"><img src="./image/0-HEROistockphoto-1490053132.jpg" /></figure>
+                    <figure class="shadow"><img src="./image/0586-OW-Exterior.jpg" /></figure>
+                    <figure class="shadow"><img src="./image/355607_w-3840_h-2160_q-70_m-crop.jpg" /></figure>
+                    <figure class="shadow"><img
+                            src="./image/4_anantara_kihavah_sunset_over_water_pool_villa_bathroom_880x475px.jpg" />
+                    </figure>
+                    <figure class="shadow"><img
+                            src="./image/74-2-AtmosphereKanifushiSUNSETWATERVILLAWITHPOOLSunsetWaterVillawithPool-152b2990899f0f6e896284d33e8f35a81-big.jpg" />
+                    </figure>
+                    <figure class="shadow"><img
+                            src="./image/bandos-maldives-resort-unveils-new-water-villas-with-pool.jpg" /></figure>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer-distributed">
+
+			<div class="footer-left">
+				<h3>Company<span>logo</span></h3>
+
+				<p class="footer-links">
+					<a href="#navbar" class="link-1">Home</a>
+					
+					<a href="#">Blog</a>
+				
+					<a href="#">Pricing</a>
+				
+					<a href="#">About</a>
+					
+					<a href="#">Faq</a>
+					
+					<a href="#">Contact</a>
+				</p>
+
+				<p class="footer-company-name">Design by Suresh Kumar © 2024</p>
+			</div>
+
+			<div class="footer-center">
+
+				<div>
+					<i class="fa fa-map-marker"></i>
+					<p><span>444 S. Cedros Ave</span> Solana Beach, California</p>
+				</div>
+
+				<div>
+					<i class="fa fa-phone"></i>
+					<p>+1.555.555.5555</p>
+				</div>
+
+				<div>
+					<i class="fa fa-envelope"></i>
+					<p><a href="mailto:support@company.com">support@company.com</a></p>
+				</div>
+
+			</div>
+
+			<div class="footer-right">
+
+				<p class="footer-company-about">
+					<span>About the company</span>
+					Lorem ipsum dolor sit amet, consectateur adispicing elit. Fusce euismod convallis velit, eu auctor lacus vehicula sit amet.
+				</p>
+
+				<div class="footer-icons">
+
+					<a href="#"><i class="fa fa-facebook"></i></a>
+					<a href="#"><i class="fa fa-twitter"></i></a>
+					<a href="#"><i class="fa fa-linkedin"></i></a>
+					<a href="#"><i class="fa fa-github"></i></a>
+
+				</div>
+
+			</div>
+
+		</footer>
+
+
+
+
+
+    </div>
+
+</body>
+
+</html>
